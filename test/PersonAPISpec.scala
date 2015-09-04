@@ -8,7 +8,6 @@ class PersonAPISpec extends Specification {
   "PersonAPI#register" should {
 
     "register person" in new WithApplication {
-      //val Some(result) = //route(FakeRequest(POST, "/api/v2/person"))
       val Some(result) = route(FakeRequest(POST, "/api/v2/person",
         FakeHeaders(Seq(CONTENT_TYPE -> Seq("application/json"))),
         Json.parse( """{"age":24, "name":{"first":"FirstName", "last":"LastName"}}""")))
@@ -16,6 +15,4 @@ class PersonAPISpec extends Specification {
       contentAsString(result) mustEqual """{"age":24,"name":{"first":"FirstName","last":"LastName"}}"""
     }
   }
-
-
 }

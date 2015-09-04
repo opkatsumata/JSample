@@ -1,10 +1,8 @@
 package controllers
 
-import models.{Name, Person}
-import play.api.libs.json.{Format, Json, JsError}
+import models.Person
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc._
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
 
 class PersonAPI extends Controller {
 
@@ -16,11 +14,4 @@ class PersonAPI extends Controller {
       BadRequest(JsError.toJson(e))
     }
   }
-}
-
-object Formatter {
-  implicit val PersonJsonFormatter: Format[Person] = (
-    (__ \ "age").format[Int] and
-      (__ \ "name").format[Name]
-    )(Person.apply, unlift(Person.unapply))
 }
