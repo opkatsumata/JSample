@@ -15,6 +15,14 @@ class PersonAPISpec extends Specification {
       contentAsString(result) mustEqual """{"age":24,"name":{"first":"FirstName","last":"LastName"}}"""
     }
 
+    "register person with bloodType" in new WithApplication {
+      val Some(result) = route(FakeRequest(POST, "/api/register",
+        FakeHeaders(Seq(CONTENT_TYPE -> "application/json")),
+        Json.parse( """{"age":24, "name":{"first":"FirstName", "last":"LastName"}, "bloodType":"AB"}""")))
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual """{"age":24,"name":{"first":"FirstName","last":"LastName"},"bloodType":"AB"}"""
+    }
+
     "display json parse error caused by PersonJsonFormatter" in new WithApplication {
       val Some(result) = route(FakeRequest(POST, "/api/register",
         FakeHeaders(Seq(CONTENT_TYPE -> "application/json")),
