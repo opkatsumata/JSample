@@ -1,7 +1,7 @@
 package controllers
 
 import models.Person
-import play.api.libs.json.{Json, JsError}
+import play.api.libs.json.{JsError, Json}
 import play.api.mvc._
 
 class PersonAPI extends Controller {
@@ -11,7 +11,7 @@ class PersonAPI extends Controller {
       //register
       Ok(Json.toJson(p))
     }.recoverTotal { e =>
-      BadRequest(JsError.toFlatJson(e))
+      BadRequest(JsError.toJson(e))
     }
   }
 }
